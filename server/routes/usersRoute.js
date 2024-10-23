@@ -9,7 +9,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 router.post("/register", async (req, res) => {
   try {
     // check if user already exists
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).maxTimeMS(15000);
     if (user) {
       return res.send({
         success: false,
@@ -41,7 +41,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     // check if user exists
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).maxTimeMS(15000);
     if (!user) {
       return res.send({
         success: false,
