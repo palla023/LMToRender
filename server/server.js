@@ -2,8 +2,13 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 require("dotenv").config();
-const dbConfig = require("./config/dbConfig");
 const port = process.env.PORT || 5000;
+
+//mongodb config
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("DB connection established..."))
+  .catch((err) => console.log(err));
 
 const usersRoute = require("./routes/usersRoute");
 const booksRoute = require("./routes/booksRoute");
